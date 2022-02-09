@@ -52,7 +52,7 @@ export default class ContractCallDecoder {
   private timeout: number;
 
   // TODO: Make IPFS argument a callback/promise to let non-http but tcp connections
-  constructor(rpcURL = "http://localhost:8545", ipfsGateway = "https://ipfs.ethdevops.io", timeout = 30000) {
+  constructor(rpcURL = "https://mainnet.infura.io/v3/ae93dc08cb024211a737fd4a7a91d996", ipfsGateway = "https://ipfs.infura.io:5001", timeout = 30000) {
     this.web3 = new Web3(rpcURL);
     this.utils = this.web3.utils;
     this.ipfsGateway = ipfsGateway;
@@ -78,7 +78,7 @@ export default class ContractCallDecoder {
   }
 
   /**
-   * Funcion to fetch the metadata from IPFS. Requires the gateway to accept links as <gatewayURL>/ipfs/<hash>
+   * Function to fetch the metadata from IPFS. Requires the gateway to accept links as <gatewayURL>/ipfs/<hash>
    * 
    * @param metadataHash - hash and origin of the metadata to be fetched
    * @returns the metadata file as an object
@@ -263,7 +263,7 @@ export default class ContractCallDecoder {
   }
 
   /**
-   * Funtion to parse and fill the variables in the dynamic NatSpec expression
+   * Function to parse and fill the variables in the dynamic NatSpec expression
    * 
    * @param expression - @notice or @dev comments of functions in dynamic Natspec
    * @param abi - the whole abi array of the contract 
@@ -278,7 +278,7 @@ export default class ContractCallDecoder {
       abi: abi,
       transaction: {
         ...tx,
-        data: tx.input // radspec expects data instead of input
+        data: tx.input // @dev radspec expects data instead of input
       }
     }
     const messagePromise = evaluate(expression, call)
@@ -320,3 +320,5 @@ export default class ContractCallDecoder {
     return byteCode;
   }
 }
+
+// @exports 
